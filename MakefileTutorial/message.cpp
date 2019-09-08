@@ -3,6 +3,6 @@
 
 using namespace std;
 
-void message::printMessage(){
-    cout << "Hello World\n";
+void message::printMessage() {
+    cout << "Makefile Example\n";
 }
