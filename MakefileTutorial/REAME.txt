@@ -1,0 +1,9 @@
+How to compile:
+gcc -o filename filename.c
+
+How to run:
+filename
+
+Reference:
+
+C Porgramming for Beginners page176
