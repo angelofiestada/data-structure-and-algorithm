@@ -1,45 +1,53 @@
 #include <stdio.h>
 #include <string.h>
-#include<stdlib.h>
-#include<ctype.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+#define LINESIZE 50
+
+int *splitInput(char inputFile[])
+{
+    FILE *input_File;
+    int *inputArray;
+    int *testInputPtr;
+    int arraySize = NULL;
+    char line[LINESIZE];
+
+    input_File = fopen(inputFile, "r");
+    inputArray = (int *)malloc(sizeof(int));
+
+    while (!feof(input_File))
+    {
+        fgets(line, LINESIZE, input_File);
+        char *token = strtok(line, " ");
+        while (token != NULL)
+        {
+            arraySize++;
+            int num = atoi(token);
+            testInputPtr = (int *)realloc(inputArray, arraySize * sizeof(int));
+            *(testInputPtr + arraySize) = num;
+
+            token = strtok(NULL, " ");
+        }
+        printf("%s", line);
+    }
+    return inputArray;
+}
 
 int main()
 {
 
-    FILE *input_File;
-    char ch, buffer[3];
-    int loop=0;
-    char *chptr;
-    int input;
+    char inputFile[] = "testinput.txt";
+    int loop = 0;
+
+    // int input;
     int arraySize; //Dynamic ArraySize
     int *inputNum; //Array to hold all the input
-    input_File = fopen("testinput.txt", "r");
+    // input_File = fopen("testinput.txt", "r");
 
     // inputNum = (int*)malloc(1*sizeof(int));
-    printf("FUCK YOY HABOKLO");
-    while (!feof(input_File))
-    
-        ch = fgetc(input_File);
-        // chptr = ch;
-        while( ch!='\n') {
-            // printf("SF\n");
-        buffer[loop++] = ch;
-        ch = fgetc(input_File);
-            if(isdigit(ch)) {
-                arraySize++;
-                printf("%d", arraySize);
-                inputNum = (int*)realloc(inputNum, arraySize*sizeof(int));
-                int input = int(ch);
-                // inputNum[arraySize] = input;
-            
-        // input=scanf(ch, "%d", input);
-        }
-    }
-        printf("%c", ch);
-    printf("ITS ME MOTHFUCK");
-    for(int i = 0; i < arraySize; i++ ) {
-        
-        printf("%d\n", inputNum[i]);
-    }
+
+    splitInput(inputFile);
+
     return 0;
 }

@@ -1,0 +1,14 @@
+C Language
+File input and output in C is done through waht?
+What do you call a paramters recieved by a function
+strrchr in C
+unsigned variable in C
+what is a function a. a set o fdrclation
+how are constant differ from regular variables
+strongly type programming language meaning
+
+Javascript
+What does the following exppression evaluate to
+[] ==[]
+Collectin object allows a unique value to be nserted onlyonce
+defer in javascritp
