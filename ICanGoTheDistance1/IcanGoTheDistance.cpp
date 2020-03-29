@@ -4,6 +4,9 @@
 #include <ctype.h>
 
 #define LINESIZE 50
+struct Input {
+
+};
 
 int *splitInput(char inputFile[])
 {
