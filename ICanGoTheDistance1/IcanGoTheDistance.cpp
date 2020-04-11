@@ -4,53 +4,77 @@
 #include <ctype.h>
 
 #define LINESIZE 50
-struct Input {
 
+struct Input
+{
+    int *testInputPtr;
+    int arraySize;
 };
 
-int *splitInput(char inputFile[])
+Input splitInput(char inputFile[])
 {
-    FILE *input_File;
-    int *inputArray;
-    int *testInputPtr;
-    int arraySize = NULL;
+    Input input;
+    FILE *input_File = fopen(inputFile, "r");
+    int *testInputPtr = (int *)malloc(0);
+    // int *testInputPtr;
+    // int arraySize = NULL;
     char line[LINESIZE];
+    input.arraySize = 1;
 
-    input_File = fopen(inputFile, "r");
-    inputArray = (int *)malloc(sizeof(int));
+    // input_File = fopen(inputFile, "r");
+    // inputArray = (int *)malloc(sizeof(int));
 
     while (!feof(input_File))
     {
         fgets(line, LINESIZE, input_File);
+        printf("TIS IS INE\t");
+        printf("%s\t", line);
         char *token = strtok(line, " ");
         while (token != NULL)
         {
-            arraySize++;
+            printf("token%s\t", token);
+            input.arraySize++;
+            printf("array Size is %d\n", input.arraySize);
             int num = atoi(token);
-            testInputPtr = (int *)realloc(inputArray, arraySize * sizeof(int));
-            *(testInputPtr + arraySize) = num;
+            printf("num%d\t", num);
+            input.testInputPtr = (int *)realloc(testInputPtr, input.arraySize * sizeof(int));
+            if(input.testInputPtr) {
+            *(input.testInputPtr + input.arraySize) = num;
+            } else {
+                printf("ERROOOOOOOOO");
+            }
+
+
+
+            printf("->%d\t\n", *(input.testInputPtr + input.arraySize));
 
             token = strtok(NULL, " ");
         }
-        printf("%s", line);
+           printf("token after %s\t", token);
     }
-    return inputArray;
+    // return input;
 }
 
 int main()
 {
-
+    int counter;
     char inputFile[] = "testinput.txt";
-    int loop = 0;
+    Input input = splitInput(inputFile);
+    // int loop = 0;
 
     // int input;
-    int arraySize; //Dynamic ArraySize
-    int *inputNum; //Array to hold all the input
+    // int arraySize; //Dynamic ArraySize
+    // int *inputNum; //Array to hold all the input
     // input_File = fopen("testinput.txt", "r");
 
     // inputNum = (int*)malloc(1*sizeof(int));
 
-    splitInput(inputFile);
-
+    // for (counter = 0; counter < input.arraySize; counter++)
+    // {
+    //     printf("%d ", *(input.testInputPtr + counter));
+    // }
     return 0;
 }
+
+solution is here 
+https://stackoverflow.com/questions/51664980/dynamic-allocation-of-array-of-strings-fails-realloc-error
