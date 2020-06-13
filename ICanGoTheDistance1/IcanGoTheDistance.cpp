@@ -15,6 +15,8 @@ Input splitInput(char inputFile[])
 {
     Input input;
     FILE *input_File = fopen(inputFile, "r");
+
+    //Initial memory allocation
     int *testInputPtr = (int *)malloc(0);
     // int *testInputPtr;
     // int arraySize = NULL;
@@ -26,9 +28,12 @@ Input splitInput(char inputFile[])
 
     while (!feof(input_File))
     {
+        //Scan each line
         fgets(line, LINESIZE, input_File);
         printf("TIS IS INE\t");
         printf("%s\t", line);
+
+        //Split the string
         char *token = strtok(line, " ");
         while (token != NULL)
         {
@@ -38,15 +43,16 @@ Input splitInput(char inputFile[])
             int num = atoi(token);
             printf("num%d\t", num);
             input.testInputPtr = (int *)realloc(testInputPtr, input.arraySize * sizeof(int));
+            
             if(input.testInputPtr) {
-            *(input.testInputPtr + input.arraySize) = num;
+            *(input.testInputPtr + (input.arraySize - 1)) = num;    
             } else {
                 printf("ERROOOOOOOOO");
             }
 
 
 
-            printf("->%d\t\n", *(input.testInputPtr + input.arraySize));
+            printf("->%d\t\n", *(input.testInputPtr + (input.arraySize - 1)));
 
             token = strtok(NULL, " ");
         }
@@ -76,5 +82,5 @@ int main()
     return 0;
 }
 
-solution is here 
-https://stackoverflow.com/questions/51664980/dynamic-allocation-of-array-of-strings-fails-realloc-error
+// solution is here 
+// https://stackoverflow.com/questions/51664980/dynamic-allocation-of-array-of-strings-fails-realloc-error
