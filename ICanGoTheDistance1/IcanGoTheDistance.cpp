@@ -3,84 +3,77 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-#define LINESIZE 50
+#define LINESIZE 20
 
 struct Input
 {
-    int *testInputPtr;
-    int arraySize;
+    struct Input *next;
+    int data;
 };
 
-Input splitInput(char inputFile[])
+struct Input *head;
+struct Input *current;
+
+void insert(int number)
 {
-    Input input;
+    struct Input *temp = (Input *)malloc(sizeof(struct Input));
+    if (head == NULL)
+    {
+        head = temp;
+        current = temp;
+    }
+    else
+    {
+        (*current).next = temp;
+        current = temp;
+    }
+    (*temp).data = number;
+    (*temp).next = NULL;
+}
+void Print()
+{
+    struct Input *temp = head;
+    while (temp != NULL)
+    {
+        printf("%d\n", (*temp).data);
+        temp = (*temp).next;
+    }
+}
+
+void splitInput(char inputFile[])
+{
+    int counter = 0;
     FILE *input_File = fopen(inputFile, "r");
-
-    //Initial memory allocation
-    int *testInputPtr = (int *)malloc(0);
-    // int *testInputPtr;
-    // int arraySize = NULL;
     char line[LINESIZE];
-    input.arraySize = 1;
-
-    // input_File = fopen(inputFile, "r");
-    // inputArray = (int *)malloc(sizeof(int));
 
     while (!feof(input_File))
     {
+        counter = counter + 1;
+        printf("counter -> %d\n", counter);
         //Scan each line
         fgets(line, LINESIZE, input_File);
-        printf("TIS IS INE\t");
-        printf("%s\t", line);
+        printf("LINE\t%s\n", line);
 
         //Split the string
         char *token = strtok(line, " ");
         while (token != NULL)
         {
-            printf("token%s\t", token);
-            input.arraySize++;
-            printf("array Size is %d\n", input.arraySize);
             int num = atoi(token);
-            printf("num%d\t", num);
-            input.testInputPtr = (int *)realloc(testInputPtr, input.arraySize * sizeof(int));
-            
-            if(input.testInputPtr) {
-            *(input.testInputPtr + (input.arraySize - 1)) = num;    
-            } else {
-                printf("ERROOOOOOOOO");
-            }
-
-
-
-            printf("->%d\t\n", *(input.testInputPtr + (input.arraySize - 1)));
-
+            insert(num);
             token = strtok(NULL, " ");
         }
-           printf("token after %s\t", token);
     }
-    // return input;
 }
 
 int main()
 {
     int counter;
     char inputFile[] = "testinput.txt";
-    Input input = splitInput(inputFile);
-    // int loop = 0;
+    splitInput(inputFile);
+    Print();
 
-    // int input;
-    // int arraySize; //Dynamic ArraySize
-    // int *inputNum; //Array to hold all the input
-    // input_File = fopen("testinput.txt", "r");
-
-    // inputNum = (int*)malloc(1*sizeof(int));
-
-    // for (counter = 0; counter < input.arraySize; counter++)
-    // {
-    //     printf("%d ", *(input.testInputPtr + counter));
-    // }
     return 0;
 }
 
-// solution is here 
+// solution is here
 // https://stackoverflow.com/questions/51664980/dynamic-allocation-of-array-of-strings-fails-realloc-error

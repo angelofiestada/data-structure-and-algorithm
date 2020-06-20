@@ -31,6 +31,22 @@ void insertData(int number, int position)
     return;
 }
 
+int getData(int position){
+      int i;
+
+    struct Node *temp1 = head;
+    if(position == 1) {
+    return (*temp1).data;
+    }
+
+    for (i = 0; i <= position; i++){
+        temp1 = (*temp1).next;
+        if(i == position - 1){
+        return (*temp1).data;
+        }
+    }
+}
+
 void removeData(int position)
 {
 
@@ -67,6 +83,7 @@ void print()
 }
 int main(void)
 {
+    int num;
 
     head = NULL;
 
@@ -84,6 +101,9 @@ int main(void)
     print();
     removeData(2);
     print();
+
+    num = getData(2);
+    printf("Number at position 1 is %d", num);
 
     return 0;
 }
